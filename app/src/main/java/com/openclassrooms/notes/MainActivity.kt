@@ -28,8 +28,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.openclassrooms.notes.data.model.Note
 import com.openclassrooms.notes.repository.NotesRepository
 import com.openclassrooms.notes.ui.theme.NotesTheme
+import com.openclassrooms.notes.viewModel.NoteViewModel
 
 /**
  * The main activity for the app.
@@ -70,7 +72,10 @@ private fun Notes(
     modifier: Modifier = Modifier,
     notesRepository: NotesRepository
 ) {
-    val notes by notesRepository.notes.collectAsStateWithLifecycle(emptyList())
+    val noteViewModel  = NoteViewModel(
+         notesRepository
+    )
+    val notes by noteViewModel.notes.collectAsStateWithLifecycle(emptyList())
 
     LazyVerticalStaggeredGrid(
         modifier = modifier.fillMaxSize(),
@@ -89,7 +94,7 @@ private fun Notes(
 }
 
 @Composable
-private fun NoteItem(note: Pair<String, String>) {
+private fun NoteItem(note: Note) {
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
@@ -98,12 +103,12 @@ private fun NoteItem(note: Pair<String, String>) {
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             Text(
-                text = note.first,
+                text = note.title,
                 style = MaterialTheme.typography.headlineLarge
             )
             Text(
                 modifier = Modifier.padding(top = 8.dp),
-                text = note.second,
+                text = note.description,
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -113,7 +118,7 @@ private fun NoteItem(note: Pair<String, String>) {
 @Composable
 private fun NoteItemPreview() {
     NotesTheme(dynamicColor = false) {
-        NoteItem(note = Pair("Title", "Super loooooong description with a lot of words!"))
+        NoteItem(note = Note(title = "Title", description = "Super loooooong description with a lot of words!"))
     }
 }
 

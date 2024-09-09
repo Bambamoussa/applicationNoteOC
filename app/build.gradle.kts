@@ -49,10 +49,11 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
-
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.5")
+    testImplementation ("app.cash.turbine:turbine:0.7.0")
+    testImplementation ("io.mockk:mockk:1.13.5")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
